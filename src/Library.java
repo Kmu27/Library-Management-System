@@ -57,4 +57,52 @@ public class Library {
 
         return null;
     }
+
+    public void borrowBook(int bookId, int memberId) {
+
+        Book book = searchBook(bookId);
+        Member member = searchMember(memberId);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+
+        if (member == null) {
+            System.out.println("Member not found.");
+            return;
+        }
+
+        if (!book.isAvailable()) {
+            System.out.println("Book is already borrowed.");
+            return;
+        }
+
+        book.borrowBook();
+
+        System.out.println(
+                book.getTitle() + " borrowed by " + member.getName()
+        );
+    }
+
+    public void returnBook(int bookId) {
+
+        Book book = searchBook(bookId);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+
+        if (book.isAvailable()) {
+            System.out.println("Book is not borrowed.");
+            return;
+        }
+
+        book.returnBook();
+
+        System.out.println(
+                book.getTitle() + " returned successfully."
+        );
+    }
 }
