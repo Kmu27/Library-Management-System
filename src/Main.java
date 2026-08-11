@@ -20,16 +20,18 @@ public class Main {
             System.out.println("8. Return Book");
             System.out.println("9. Exit");
 
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+            int choice = readInteger(
+                    scanner,
+                    "Choose an option: "
+            );
 
             switch (choice) {
 
                 case 1:
-                    System.out.print("Enter Book ID: ");
-                    int id = scanner.nextInt();
-
-                    scanner.nextLine();
+                    int id = readInteger(
+                            scanner,
+                            "Enter Book ID: "
+                    );
 
                     System.out.print("Enter Book Title: ");
                     String title = scanner.nextLine();
@@ -39,25 +41,46 @@ public class Main {
 
                     Book book = new Book(id, title, author);
 
-                    library.addBook(book);
+                    boolean bookAdded =
+                            library.addBook(book);
 
-                    System.out.println("Book added successfully.");
+                    if (bookAdded) {
+                        System.out.println(
+                                "Book added successfully."
+                        );
+                    } else {
+                        System.out.println(
+                                "Book ID already exists."
+                        );
+                    }
+
                     break;
 
                 case 2:
-                    System.out.print("Enter Member ID: ");
-                    int memberId = scanner.nextInt();
-
-                    scanner.nextLine();
+                    int memberId = readInteger(
+                            scanner,
+                            "Enter Member ID: "
+                    );
 
                     System.out.print("Enter Member Name: ");
                     String name = scanner.nextLine();
 
-                    Member member = new Member(memberId, name);
+                    Member member =
+                            new Member(memberId, name);
 
-                    library.addMember(member);
+                    boolean memberAdded =
+                            library.addMember(member);
 
-                    System.out.println("Member added successfully.");
+                    if (memberAdded) {
+                        System.out.println(
+                                "Member added successfully."
+                        );
+                    } else {
+                        System.out.println(
+                                "Member ID already exists."
+                        );
+                    }
+
                     break;
 
                 case 3:
@@ -69,10 +92,13 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.print("Enter Book ID: ");
-                    int searchBookId = scanner.nextInt();
+                    int searchBookId = readInteger(
+                            scanner,
+                            "Enter Book ID: "
+                    );
 
-                    Book foundBook = library.searchBook(searchBookId);
+                    Book foundBook =
+                            library.searchBook(searchBookId);
 
                     if (foundBook == null) {
                         System.out.println("Book not found.");
@@ -83,8 +109,10 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.print("Enter Member ID: ");
-                    int searchMemberId = scanner.nextInt();
+                    int searchMemberId = readInteger(
+                            scanner,
+                            "Enter Member ID: "
+                    );
 
                     Member foundMember =
                             library.searchMember(searchMemberId);
@@ -98,11 +126,15 @@ public class Main {
                     break;
 
                 case 7:
-                    System.out.print("Enter Book ID: ");
-                    int borrowBookId = scanner.nextInt();
+                    int borrowBookId = readInteger(
+                            scanner,
+                            "Enter Book ID: "
+                    );
 
-                    System.out.print("Enter Member ID: ");
-                    int borrowMemberId = scanner.nextInt();
+                    int borrowMemberId = readInteger(
+                            scanner,
+                            "Enter Member ID: "
+                    );
 
                     library.borrowBook(
                             borrowBookId,
@@ -112,8 +144,10 @@ public class Main {
                     break;
 
                 case 8:
-                    System.out.print("Enter Book ID: ");
-                    int returnBookId = scanner.nextInt();
+                    int returnBookId = readInteger(
+                            scanner,
+                            "Enter Book ID: "
+                    );
 
                     library.returnBook(returnBookId);
 
@@ -129,6 +163,29 @@ public class Main {
                             "Invalid choice. Please choose from 1 to 9."
                     );
                     break;
+            }
+        }
+    }
+
+    public static int readInteger(
+            Scanner scanner,
+            String message) {
+
+        while (true) {
+
+            System.out.print(message);
+
+            String value =
+                    scanner.nextLine().trim();
+
+            try {
+                return Integer.parseInt(value);
+
+            } catch (NumberFormatException exception) {
+
+                System.out.println(
+                        "Invalid input. Please enter an integer number."
+                );
             }
         }
     }

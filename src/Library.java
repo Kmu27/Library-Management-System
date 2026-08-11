@@ -10,12 +10,24 @@ public class Library {
         members = new ArrayList<>();
     }
 
-    public void addBook(Book book) {
+    public boolean addBook(Book book) {
+
+        if (searchBook(book.getId()) != null) {
+            return false;
+        }
+
         books.add(book);
+        return true;
     }
 
-    public void addMember(Member member) {
+    public boolean addMember(Member member) {
+
+        if (searchMember(member.getId()) != null) {
+            return false;
+        }
+
         members.add(member);
+        return true;
     }
 
     public void viewBooks() {
