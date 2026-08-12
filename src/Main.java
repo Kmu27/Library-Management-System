@@ -5,6 +5,10 @@ public class Main {
     public static void main(String[] args) {
 
         Library library = new Library();
+
+        FileManager.loadBooks(library.getBooks());
+        FileManager.loadMembers(library.getMembers());
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -154,6 +158,14 @@ public class Main {
                     break;
 
                 case 9:
+                    FileManager.saveBooks(
+                            library.getBooks()
+                    );
+
+                    FileManager.saveMembers(
+                            library.getMembers()
+                    );
+
                     System.out.println("Goodbye!");
                     scanner.close();
                     return;
