@@ -32,16 +32,20 @@ public class Main {
             switch (choice) {
 
                 case 1:
-                    int id = readInteger(
+                    int id = readPositiveInteger(
                             scanner,
                             "Enter Book ID: "
                     );
 
-                    System.out.print("Enter Book Title: ");
-                    String title = scanner.nextLine();
+                    String title = readNonEmptyString(
+                            scanner,
+                            "Enter Book Title: "
+                    );
 
-                    System.out.print("Enter Book Author: ");
-                    String author = scanner.nextLine();
+                    String author = readNonEmptyString(
+                            scanner,
+                            "Enter Book Author: "
+                    );
 
                     Book book = new Book(id, title, author);
 
@@ -61,13 +65,15 @@ public class Main {
                     break;
 
                 case 2:
-                    int memberId = readInteger(
+                    int memberId = readPositiveInteger(
                             scanner,
                             "Enter Member ID: "
                     );
 
-                    System.out.print("Enter Member Name: ");
-                    String name = scanner.nextLine();
+                    String name = readNonEmptyString(
+                            scanner,
+                            "Enter Member Name: "
+                    );
 
                     Member member =
                             new Member(memberId, name);
@@ -96,7 +102,7 @@ public class Main {
                     break;
 
                 case 5:
-                    int searchBookId = readInteger(
+                    int searchBookId = readPositiveInteger(
                             scanner,
                             "Enter Book ID: "
                     );
@@ -113,7 +119,7 @@ public class Main {
                     break;
 
                 case 6:
-                    int searchMemberId = readInteger(
+                    int searchMemberId = readPositiveInteger(
                             scanner,
                             "Enter Member ID: "
                     );
@@ -130,12 +136,12 @@ public class Main {
                     break;
 
                 case 7:
-                    int borrowBookId = readInteger(
+                    int borrowBookId = readPositiveInteger(
                             scanner,
                             "Enter Book ID: "
                     );
 
-                    int borrowMemberId = readInteger(
+                    int borrowMemberId = readPositiveInteger(
                             scanner,
                             "Enter Member ID: "
                     );
@@ -148,7 +154,7 @@ public class Main {
                     break;
 
                 case 8:
-                    int returnBookId = readInteger(
+                    int returnBookId = readPositiveInteger(
                             scanner,
                             "Enter Book ID: "
                     );
@@ -199,6 +205,48 @@ public class Main {
                         "Invalid input. Please enter an integer number."
                 );
             }
+        }
+    }
+
+    public static int readPositiveInteger(
+            Scanner scanner,
+            String message) {
+
+        while (true) {
+
+            int number = readInteger(
+                    scanner,
+                    message
+            );
+
+            if (number > 0) {
+                return number;
+            }
+
+            System.out.println(
+                    "ID must be greater than 0."
+            );
+        }
+    }
+
+    public static String readNonEmptyString(
+            Scanner scanner,
+            String message) {
+
+        while (true) {
+
+            System.out.print(message);
+
+            String value =
+                    scanner.nextLine().trim();
+
+            if (!value.isEmpty()) {
+                return value;
+            }
+
+            System.out.println(
+                    "Input cannot be empty. Please try again."
+            );
         }
     }
 }
